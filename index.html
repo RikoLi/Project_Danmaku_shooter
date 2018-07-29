@@ -1,0 +1,42 @@
+<!--起始页，玩家信息登记-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="./css/style.css"> 
+        <title>Denmaku Shooter Demo</title>
+    </head>
+    <body>
+        <!--信息登记区域-->
+        <div id="info-area">
+            <h1 id="welcome">欢迎来到Denmaku Shooter Demo Version!</h1>
+            <div>
+                <img id="self-potrait" src="./assets/self_potrait.jpg" alt="self_potrait" height="300" width="100">
+            </div>
+            <div id="introduction">
+                <p>您好，我是作者。</p>
+                <p>首先对这个HTML随便糊的页面表示抱歉。</p>
+                <p> 在这里你将体验到一款丢人的弹幕射击游戏是如何工作的。</p>
+                <p>在正式开始丢人体验前，请填写您的个人信息，以便更好享受<del>丢人</del>游戏体验。</p>
+                <p>测试用demo可能仍有bug存在，如果出现问题请刷新页面。</p>
+                <p>生命只有一次，死亡后刷新回到该页面，所以，请认真对待生命。</p>
+            </div>
+            <hr>
+            <h2>个人信息</h2>
+            <div id="div-name-set">
+                <span>角色名：<input class="input-box" id="player-name" type="text" placeholder="在这里输入姓名" value=""></span>
+                <br><br>
+            </div>
+            <div id="div-icon-choose">
+                <span>选择头像：<input class="input-box" accept="image/*" type="file" id="choose-icon" onchange="uploadIcon()"></span>
+                <br><br>
+                <img class="icon-box" id="player-icon" alt="头像预览(150px by 150px)" width="150" height="150">
+            </div>
+            <br>
+            <button onclick="startGame(document.getElementById('player-name').value)">我要开始丢人了!</button>
+            <button onclick="startDev()">开发者模式</button>
+        </div>
+        <!--游戏区域，用js操作DOM创建-->
+    </body>
+    <script src="./js/index_data_process.js"></script>
+</html>
