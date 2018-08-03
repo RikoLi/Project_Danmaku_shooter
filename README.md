@@ -1,5 +1,6 @@
 > 这份README有些地方已经过时了，即将更换，请以blog上的说明为准！2018.8.3
-blog地址：[https://rikoli.github.io/](https://rikoli.github.io/)
+
+blog地址：<a href="https://rikoli.github.io/" target="_blank">https://rikoli.github.io</a>
 
 # Denmaku Shooter（暂定） Demo Version 说明
 ---
