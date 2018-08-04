@@ -1,4 +1,4 @@
-> 这份README有些地方已经过时了，即将更换，请以blog上的说明为准！2018.8.3
+> 这份README有些地方已经过时了，即将更换，请以blog上的说明为准！release中是打包好的全部资源。——2018.8.3
 
 blog地址：<a href="https://rikoli.github.io/" target="_blank">https://rikoli.github.io</a>（请在新窗口中打开）
 
