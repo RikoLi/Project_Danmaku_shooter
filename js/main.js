@@ -85,7 +85,7 @@ function mainLoop(){
     system.hitDetect(); 
     //Update GUI
     system.SCRBoundaryInit();
-    system.EnemyStateDisp();
+    system.enemyStateDisp();
     player.stateUpdate();
     player.checkState();
     //Auxiliary operations

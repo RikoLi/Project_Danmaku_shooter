@@ -25,12 +25,81 @@ class System {
     constructor(){
         this.isOpenMenu = false;
     }
+    // Object generator
+    enemyGen(){
+        let isGenEnemy = Math.random();
+        let amoutLimit = 10;
+        //Generate different kinds of enemies
+        if(isGenEnemy < 0.6 && !(playerTimeCounter % FPS) && amoutLimit > enemyCounter){
+            enemyArray[enemyCounter] = new Enemy('enemy_0', CANVAS_W+5, CANVAS_H*Math.random(), -0.06, 0, 0.2, 'basic_shot');
+            enemyCounter ++;
+        }
+        if(isGenEnemy < 0.4 && !(playerTimeCounter % FPS) && amoutLimit > enemyCounter){
+            enemyArray[enemyCounter] = new Enemy('enemy_1', CANVAS_W+5, CANVAS_H*Math.random(), -0.02, 0, 0.4, 'tracking_shot');
+            enemyCounter ++;
+        }
+        if(isGenEnemy < 0.2 && !(playerTimeCounter % FPS) && amoutLimit > enemyCounter){
+            enemyArray[enemyCounter] = new Enemy('enemy_2', CANVAS_W+5, CANVAS_H*Math.random(), -0.7, 0, 0.1, '');
+            enemyCounter ++;
+        }
+        if(isGenEnemy < 0.3 && !(playerTimeCounter % FPS) && amoutLimit > enemyCounter){
+            enemyArray[enemyCounter] = new Enemy('enemy_4', CANVAS_W+5, CANVAS_H*Math.random(), -0.04, 0, 0.4, 'scatter_shot');
+            enemyCounter ++;
+        }
+        if(player.score > 50 && isGenEnemy < 0.3 && !(playerTimeCounter % FPS) && amoutLimit > enemyCounter){
+            enemyArray[enemyCounter] = new Enemy('enemy_5', CANVAS_W+5, CANVAS_H*Math.random(), -0.07, 0.02, 0.4, 'basic_shot');
+            enemyCounter ++;
+        }
+    }
     itemGen(name, x, y, xVel, yVel){
         //Generate a new item
         itemArray[itemCounter] = new Item(name, x, y, xVel, yVel);
         itemCounter ++;
     }
-    EnemyStateDisp(){
+    // BG Render
+    SCRBoundaryInit(){
+        //Draw boundary
+        pen.beginPath();
+        pen.globalAlpha = 1;
+        pen.lineWidth = 5;
+        pen.strokeStyle = 'black';
+        pen.moveTo(0, 0);
+        pen.lineTo(CANVAS_W, 0);
+        pen.lineTo(CANVAS_W, CANVAS_H);
+        pen.lineTo(0, CANVAS_H);
+        pen.lineTo(0, 0);
+        pen.stroke();
+        //Auxiliary mesh
+        /*pen.beginPath();
+        pen.globalAlpha = 1;
+        pen.lineWidth = 1;
+        pen.strokeStyle = 'grey';
+        for(let  i = 100; i < CANVAS_W; i += 100){
+            pen.moveTo(i, 0);
+            pen.lineTo(i, CANVAS_H);
+            pen.stroke();
+        }
+        for(let  i = 100; i < CANVAS_H; i += 100){
+            pen.moveTo(0, i);
+            pen.lineTo(CANVAS_W, i);
+            pen.stroke();
+        }*/
+    }
+    SCRClear(x0, y0, w, h){
+        //Clear the screen
+        pen.clearRect(x0, y0, w, h);
+    }
+    BGInit(){
+        pen.beginPath();
+        pen.globalAlpha = 1;
+        let  style = pen.createLinearGradient(0, 0, 0, CANVAS_H);
+        style.addColorStop(0.5, 'DeepSkyBlue');
+        style.addColorStop(0.7, 'LightSkyBlue');
+        style.addColorStop(1, 'White');
+        pen.fillStyle = style;
+        pen.fillRect(0, 0, CANVAS_W, CANVAS_H);
+    }
+    enemyStateDisp(){
         if(dispEnemyId != undefined){
             pen.beginPath();
             pen.globalAlpha = 1;
@@ -54,6 +123,21 @@ class System {
             }
         }
     }
+    drawMenuBorder(x0, y0, w, h){
+        pen.beginPath();
+        pen.globalAlpha = 1;
+        pen.moveTo(x0, y0);
+        pen.lineTo(x0+w, y0);
+        pen.lineTo(x0+w, y0+h);
+        pen.lineTo(x0, y0+h);
+        pen.lineTo(x0, y0);
+        pen.lineWidth = 5;
+        pen.strokeStyle = 'Black';
+        pen.fillStyle = 'Gainsboro';
+        pen.stroke();
+        pen.fill();
+    }
+    // Objects behavior process
     hitDetect(){
         //Bullet-enemy hit detection
         for(let i = 0; i < bulletCounter; i++){
@@ -118,87 +202,7 @@ class System {
             }
         }
     }
-    enemyGen(){
-        let isGenEnemy = Math.random();
-        let amoutLimit = 10;
-        //Generate different kinds of enemies
-        if(isGenEnemy < 0.6 && !(playerTimeCounter % FPS) && amoutLimit > enemyCounter){
-            enemyArray[enemyCounter] = new Enemy('enemy_0', CANVAS_W+5, CANVAS_H*Math.random(), -0.06, 0, 0.2, 'basic_shot');
-            enemyCounter ++;
-        }
-        if(isGenEnemy < 0.4 && !(playerTimeCounter % FPS) && amoutLimit > enemyCounter){
-            enemyArray[enemyCounter] = new Enemy('enemy_1', CANVAS_W+5, CANVAS_H*Math.random(), -0.02, 0, 0.4, 'tracking_shot');
-            enemyCounter ++;
-        }
-        if(isGenEnemy < 0.2 && !(playerTimeCounter % FPS) && amoutLimit > enemyCounter){
-            enemyArray[enemyCounter] = new Enemy('enemy_2', CANVAS_W+5, CANVAS_H*Math.random(), -0.7, 0, 0.1, '');
-            enemyCounter ++;
-        }
-        if(isGenEnemy < 0.3 && !(playerTimeCounter % FPS) && amoutLimit > enemyCounter){
-            enemyArray[enemyCounter] = new Enemy('enemy_4', CANVAS_W+5, CANVAS_H*Math.random(), -0.04, 0, 0.4, 'scatter_shot');
-            enemyCounter ++;
-        }
-        if(player.score > 50 && isGenEnemy < 0.3 && !(playerTimeCounter % FPS) && amoutLimit > enemyCounter){
-            enemyArray[enemyCounter] = new Enemy('enemy_5', CANVAS_W+5, CANVAS_H*Math.random(), -0.07, 0.02, 0.4, 'basic_shot');
-            enemyCounter ++;
-        }
-    }
-    SCRBoundaryInit(){
-        //Draw boundary
-        pen.beginPath();
-        pen.globalAlpha = 1;
-        pen.lineWidth = 5;
-        pen.strokeStyle = 'black';
-        pen.moveTo(0, 0);
-        pen.lineTo(CANVAS_W, 0);
-        pen.lineTo(CANVAS_W, CANVAS_H);
-        pen.lineTo(0, CANVAS_H);
-        pen.lineTo(0, 0);
-        pen.stroke();
-        //Auxiliary mesh
-        /*pen.beginPath();
-        pen.globalAlpha = 1;
-        pen.lineWidth = 1;
-        pen.strokeStyle = 'grey';
-        for(let  i = 100; i < CANVAS_W; i += 100){
-            pen.moveTo(i, 0);
-            pen.lineTo(i, CANVAS_H);
-            pen.stroke();
-        }
-        for(let  i = 100; i < CANVAS_H; i += 100){
-            pen.moveTo(0, i);
-            pen.lineTo(CANVAS_W, i);
-            pen.stroke();
-        }*/
-    }
-    SCRClear(x0, y0, w, h){
-        //Clear the screen
-        pen.clearRect(x0, y0, w, h);
-    }
-    BGInit(){
-        pen.beginPath();
-        pen.globalAlpha = 1;
-        let  style = pen.createLinearGradient(0, 0, 0, CANVAS_H);
-        style.addColorStop(0.5, 'DeepSkyBlue');
-        style.addColorStop(0.7, 'LightSkyBlue');
-        style.addColorStop(1, 'White');
-        pen.fillStyle = style;
-        pen.fillRect(0, 0, CANVAS_W, CANVAS_H);
-    }
-    drawMenuBorder(x0, y0, w, h){
-        pen.beginPath();
-        pen.globalAlpha = 1;
-        pen.moveTo(x0, y0);
-        pen.lineTo(x0+w, y0);
-        pen.lineTo(x0+w, y0+h);
-        pen.lineTo(x0, y0+h);
-        pen.lineTo(x0, y0);
-        pen.lineWidth = 5;
-        pen.strokeStyle = 'Black';
-        pen.fillStyle = 'Gainsboro';
-        pen.stroke();
-        pen.fill();
-    }
+    // Player-system interaction process
     openMenu(menuName){
         if(player.hp > 0){
             switch(menuName){
